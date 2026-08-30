@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package rf.telemetry;
+
+message RfTelemetryMessage {
+  string device_id = 1;
+  string timestamp_iso = 2;
+  int64 timestamp_epoch_ms = 3;
+  double hz_low = 4;
+  double hz_high = 5;
+  double hz_bin_width = 6;
+  int32 num_samples = 7;
+  repeated float db_bins = 8;
+  map<string, string> metadata = 9;
+}
