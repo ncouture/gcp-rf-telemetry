@@ -1,9 +1,10 @@
 """Unit tests for agent CLI module."""
 
-import pytest
 from pathlib import Path
 
-from agent.cli import parse_args, main_async
+import pytest
+
+from agent.cli import main_async, parse_args
 
 
 def test_cli_parse_args():

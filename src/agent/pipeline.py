@@ -1,7 +1,6 @@
 """Telemetry Data Pipeline Orchestrator."""
 
 import asyncio
-from typing import Optional
 
 from agent.csv_reader import CsvTelemetryReader
 from agent.publisher import PubSubPublisher
@@ -16,7 +15,7 @@ class TelemetryPipeline:
         self,
         reader: CsvTelemetryReader,
         publisher: PubSubPublisher,
-        spooler: Optional[SqliteSpooler] = None,
+        spooler: SqliteSpooler | None = None,
     ) -> None:
         self.reader = reader
         self.publisher = publisher
@@ -48,6 +47,6 @@ class TelemetryPipeline:
         while True:
             try:
                 await self.run_once()
-            except Exception as e:
+            except (RuntimeError, ValueError, OSError) as e:
                 print(f"Error in telemetry pipeline loop: {e}")
             await asyncio.sleep(poll_interval_sec)

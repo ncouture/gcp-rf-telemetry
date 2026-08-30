@@ -1,7 +1,8 @@
 """Unit tests for GCP Pub/Sub Publisher and Mock Transport."""
 
-import pytest
 from pathlib import Path
+
+import pytest
 
 from agent.proto.telemetry_pb2 import RfTelemetryMessage
 from agent.publisher import PubSubPublisher

@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI
 from fastapi.responses import PlainTextResponse
-from prometheus_client import Counter, Gauge, generate_latest, CONTENT_TYPE_LATEST
+from prometheus_client import CONTENT_TYPE_LATEST, Counter, Gauge, generate_latest
 
 MESSAGES_PROCESSED_TOTAL = Counter(
     "telemetry_messages_processed_total",

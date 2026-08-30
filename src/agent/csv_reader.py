@@ -2,9 +2,9 @@
 
 import asyncio
 import csv
-from datetime import datetime, timezone
+from collections.abc import AsyncGenerator
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import AsyncGenerator, Optional, Union
 
 from agent.proto.telemetry_pb2 import RfTelemetryMessage
 
@@ -14,7 +14,7 @@ class CsvTelemetryReader:
 
     def __init__(
         self,
-        csv_path: Union[str, Path],
+        csv_path: str | Path,
         device_id: str = "edge-rf-sensor-01",
         loop: bool = False,
         interval_sec: float = 1.0,
@@ -24,7 +24,7 @@ class CsvTelemetryReader:
         self.loop = loop
         self.interval_sec = interval_sec
 
-    def parse_row_tokens(self, header: list[str], row: list[str]) -> Optional[RfTelemetryMessage]:
+    def parse_row_tokens(self, header: list[str], row: list[str]) -> RfTelemetryMessage | None:
         """Parses a header and row list into an RfTelemetryMessage."""
         if not header or not row:
             return None
@@ -45,11 +45,11 @@ class CsvTelemetryReader:
             if date_str and time_str:
                 dt_str = f"{date_str}T{time_str}Z"
                 dt = datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M:%S").replace(
-                    tzinfo=timezone.utc
+                    tzinfo=UTC
                 )
                 epoch_ms = int(dt.timestamp() * 1000)
             else:
-                now = datetime.now(timezone.utc)
+                now = datetime.now(UTC)
                 dt_str = now.isoformat()
                 epoch_ms = int(now.timestamp() * 1000)
 
@@ -87,7 +87,7 @@ class CsvTelemetryReader:
                 num_samples=num_samples,
                 db_bins=db_bins,
             )
-        except Exception as e:
+        except (ValueError, KeyError, TypeError, OSError) as e:
             print(f"Error parsing CSV row: {e}")
             return None
 
@@ -97,7 +97,7 @@ class CsvTelemetryReader:
             raise FileNotFoundError(f"CSV file not found: {self.csv_path}")
 
         while True:
-            with open(self.csv_path, mode="r", encoding="utf-8") as f:
+            with open(self.csv_path, mode="r", encoding="utf-8") as f:  # noqa: ASYNC230
                 reader = csv.reader(f)
                 header = next(reader, None)
                 if not header:

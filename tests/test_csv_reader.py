@@ -1,10 +1,11 @@
 """Unit tests for CSV mock telemetry reader."""
 
 from pathlib import Path
+
 import pytest
 
-from agent.proto.telemetry_pb2 import RfTelemetryMessage
 from agent.csv_reader import CsvTelemetryReader
+from agent.proto.telemetry_pb2 import RfTelemetryMessage
 
 
 @pytest.mark.asyncio

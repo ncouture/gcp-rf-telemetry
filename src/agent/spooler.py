@@ -2,7 +2,6 @@
 
 import asyncio
 from pathlib import Path
-from typing import Optional, Union
 
 import aiosqlite
 
@@ -12,9 +11,9 @@ from agent.proto.telemetry_pb2 import RfTelemetryMessage
 class SqliteSpooler:
     """Persistent disk-backed SQLite queue for telemetry message buffering."""
 
-    def __init__(self, db_path: Union[str, Path] = "telemetry_spool.db") -> None:
+    def __init__(self, db_path: str | Path = "telemetry_spool.db") -> None:
         self.db_path = Path(db_path)
-        self._conn: Optional[aiosqlite.Connection] = None
+        self._conn: aiosqlite.Connection | None = None
         self._lock = asyncio.Lock()
 
     async def initialize(self) -> None:
@@ -52,12 +51,11 @@ class SqliteSpooler:
         if self._conn is None:
             await self.initialize()
 
-        async with self._lock:
-            async with self._conn.execute(
-                "SELECT id, payload FROM telemetry_queue ORDER BY id ASC LIMIT ?;",
-                (batch_size,),
-            ) as cursor:
-                rows = await cursor.fetchall()
+        async with self._lock, self._conn.execute(
+            "SELECT id, payload FROM telemetry_queue ORDER BY id ASC LIMIT ?;",
+            (batch_size,),
+        ) as cursor:
+            rows = await cursor.fetchall()
 
         results: list[tuple[int, RfTelemetryMessage]] = []
         for row_id, payload in rows:
@@ -85,12 +83,11 @@ class SqliteSpooler:
         if self._conn is None:
             await self.initialize()
 
-        async with self._lock:
-            async with self._conn.execute(
-                "SELECT COUNT(*) FROM telemetry_queue;"
-            ) as cursor:
-                row = await cursor.fetchone()
-                return row[0] if row else 0
+        async with self._lock, self._conn.execute(
+            "SELECT COUNT(*) FROM telemetry_queue;"
+        ) as cursor:
+            row = await cursor.fetchone()
+            return row[0] if row else 0
 
     async def close(self) -> None:
         """Closes the database connection."""

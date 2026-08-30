@@ -1,6 +1,5 @@
 """Unit tests for FastAPI observability health and metrics server."""
 
-import pytest
 from fastapi.testclient import TestClient
 
 

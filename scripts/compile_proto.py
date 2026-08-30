@@ -27,7 +27,7 @@ def compile_proto():
             str(proto_file),
         ]
         print(f"Compiling {proto_file.name} -> {output_dir}")
-        res = subprocess.run(cmd)
+        res = subprocess.run(cmd, check=False)
         if res.returncode != 0:
             print(f"Error compiling {proto_file.name}")
             sys.exit(res.returncode)

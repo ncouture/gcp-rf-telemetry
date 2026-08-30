@@ -3,7 +3,6 @@
 import asyncio
 import os
 import uuid
-from typing import Optional
 
 from agent.proto.telemetry_pb2 import RfTelemetryMessage
 from agent.spooler import SqliteSpooler
@@ -18,7 +17,7 @@ class PubSubPublisher:
         topic_id: str = "rf-telemetry-stream",
         mock_mode: bool = False,
         mock_simulate_failure: bool = False,
-        spooler: Optional[SqliteSpooler] = None,
+        spooler: SqliteSpooler | None = None,
     ) -> None:
         self.project_id = project_id
         self.topic_id = topic_id
@@ -27,7 +26,7 @@ class PubSubPublisher:
         self.spooler = spooler
 
         self._publisher_client = None
-        self._topic_path: Optional[str] = None
+        self._topic_path: str | None = None
         self.mock_published_messages: list[RfTelemetryMessage] = []
 
     async def initialize(self) -> None:
@@ -43,12 +42,12 @@ class PubSubPublisher:
             self._topic_path = self._publisher_client.topic_path(
                 self.project_id, self.topic_id
             )
-        except Exception as e:
+        except (RuntimeError, ValueError, OSError, AttributeError) as e:
             print(f"Warning: Failed to initialize GCP Pub/Sub client ({e}). Switching to mock mode.")
             self.mock_mode = True
             self._topic_path = f"projects/{self.project_id}/topics/{self.topic_id}"
 
-    async def publish(self, message: RfTelemetryMessage) -> Optional[str]:
+    async def publish(self, message: RfTelemetryMessage) -> str | None:
         """Publishes an RfTelemetryMessage to GCP Pub/Sub. Spools to disk on failure."""
         if self._topic_path is None:
             await self.initialize()
@@ -74,7 +73,7 @@ class PubSubPublisher:
             )
             msg_id = await loop.run_in_executor(None, future.result)
             return str(msg_id)
-        except Exception as e:
+        except (RuntimeError, ValueError, OSError) as e:
             print(f"GCP Pub/Sub publish failed ({e}). Spooling message to offline buffer...")
             if self.spooler is not None:
                 await self.spooler.enqueue(message)

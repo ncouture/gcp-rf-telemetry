@@ -1,12 +1,13 @@
 """Integration tests for end-to-end TelemetryPipeline."""
 
-import pytest
 from pathlib import Path
 
+import pytest
+
 from agent.csv_reader import CsvTelemetryReader
+from agent.pipeline import TelemetryPipeline
 from agent.publisher import PubSubPublisher
 from agent.spooler import SqliteSpooler
-from agent.pipeline import TelemetryPipeline
 
 
 @pytest.mark.asyncio

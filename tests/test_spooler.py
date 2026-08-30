@@ -1,7 +1,9 @@
 """Unit tests for SQLite spooling buffer queue."""
 
-import pytest
 from pathlib import Path
+
+import pytest
+
 from agent.proto.telemetry_pb2 import RfTelemetryMessage
 
 
