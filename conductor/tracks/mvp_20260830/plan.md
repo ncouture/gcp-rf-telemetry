@@ -24,13 +24,13 @@
   - [x] Run unit tests and confirm all tests pass (Green Phase).
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [2aed756]
 
-## Phase 4: SQLite Offline Queue & Buffer Spooler
+## Phase 4: SQLite Offline Queue & Buffer Spooler [checkpoint: 4aab870]
 - [x] Task: Write Unit Tests for SQLite Spooler [4aab870]
   - [x] Write failing unit tests in `tests/test_spooler.py` for enqueueing Protobuf payloads, persistent disk storage, dequeueing in FIFO order, and queue size metrics.
 - [x] Task: Implement SQLite Spooler Module (`src/agent/spooler.py`) [4aab870]
   - [x] Implement async `SqliteSpooler` class backed by SQLite database.
   - [x] Run unit tests and confirm all tests pass (Green Phase).
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [4aab870]
 
 ## Phase 5: GCP Pub/Sub Transport & Mock Publisher Client
 - [ ] Task: Write Unit Tests for Pub/Sub Transport & Mock Publisher
