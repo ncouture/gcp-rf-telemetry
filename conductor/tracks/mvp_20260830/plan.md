@@ -15,14 +15,14 @@
   - [x] Rerun unit tests and confirm all tests pass (Green Phase).
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [3e8bf68]
 
-## Phase 3: CSV Mock Reader & Telemetry Data Ingestion
+## Phase 3: CSV Mock Reader & Telemetry Data Ingestion [checkpoint: 2aed756]
 - [x] Task: Write Unit Tests for CSV Mock Reader [2aed756]
   - [x] Create sample test CSV file in `tests/fixtures/sample_rf.csv`.
   - [x] Write failing unit tests in `tests/test_csv_reader.py` for parsing CSV rows, validating spectral fields (`date, time, hz_low, hz_high, hz_bin_width, num_samples, dB...`), and converting to Protobuf messages.
 - [x] Task: Implement CSV Mock Reader Module (`src/agent/csv_reader.py`) [2aed756]
   - [x] Implement `CsvTelemetryReader` class with async generator yielding `RfTelemetryMessage` objects.
   - [x] Run unit tests and confirm all tests pass (Green Phase).
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [2aed756]
 
 ## Phase 4: SQLite Offline Queue & Buffer Spooler
 - [ ] Task: Write Unit Tests for SQLite Spooler
