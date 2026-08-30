@@ -1,10 +1,10 @@
 # Implementation Plan: MVP Implementation Track
 
-## Phase 1: Environment & Project Scaffolding
+## Phase 1: Environment & Project Scaffolding [checkpoint: 1e71a7b]
 - [x] Task: Environment Setup & Python Dependency Management (`pyproject.toml`) [1e71a7b]
   - [x] Create `pyproject.toml` with dependencies (`google-cloud-pubsub`, `protobuf`, `fastapi`, `uvicorn`, `prometheus-client`, `aiosqlite`, `pytest`, `pytest-asyncio`, `ruff`).
   - [x] Configure package directory structure (`src/agent/`, `tests/`, `proto/`, `data/`).
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [1e71a7b]
 
 ## Phase 2: Protobuf Schema Definition & Codegen Module
 - [ ] Task: Write Unit Tests for Protobuf Serialization & Deserialization
