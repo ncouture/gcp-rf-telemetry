@@ -7,12 +7,12 @@
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [1e71a7b]
 
 ## Phase 2: Protobuf Schema Definition & Codegen Module
-- [ ] Task: Write Unit Tests for Protobuf Serialization & Deserialization
-  - [ ] Write unit tests in `tests/test_proto.py` for Protobuf schema instantiation, serialization, and deserialization.
-- [ ] Task: Implement Protobuf Telemetry Schema (`proto/telemetry.proto`) & Codegen Script
-  - [ ] Write `proto/telemetry.proto` with `RfTelemetryMessage` schema supporting spectral sweep data (`db_bins`).
-  - [ ] Add build/compilation script to compile `.proto` to Python module `src/agent/proto/telemetry_pb2.py`.
-  - [ ] Rerun unit tests and confirm all tests pass (Green Phase).
+- [x] Task: Write Unit Tests for Protobuf Serialization & Deserialization [3e8bf68]
+  - [x] Write unit tests in `tests/test_proto.py` for Protobuf schema instantiation, serialization, and deserialization.
+- [x] Task: Implement Protobuf Telemetry Schema (`proto/telemetry.proto`) & Codegen Script [3e8bf68]
+  - [x] Write `proto/telemetry.proto` with `RfTelemetryMessage` schema supporting spectral sweep data (`db_bins`).
+  - [x] Add build/compilation script to compile `.proto` to Python module `src/agent/proto/telemetry_pb2.py`.
+  - [x] Rerun unit tests and confirm all tests pass (Green Phase).
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 3: CSV Mock Reader & Telemetry Data Ingestion
