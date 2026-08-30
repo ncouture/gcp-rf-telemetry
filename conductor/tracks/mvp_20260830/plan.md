@@ -41,13 +41,13 @@
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [d5005c3]
 
 ## Phase 6: FastAPI Observability Server & Agent Pipeline CLI
-- [ ] Task: Write Unit Tests for Observability Server & CLI Pipeline
-  - [ ] Write failing unit tests in `tests/test_server.py` for `GET /healthz` and `GET /metrics`.
-  - [ ] Write failing integration test in `tests/test_pipeline.py` for end-to-end telemetry ingestion, spooling, and publishing.
-- [ ] Task: Implement Observability Server & Agent Orchestrator CLI (`src/agent/server.py` & `src/agent/cli.py`)
-  - [ ] Implement FastAPI server exposing health and Prometheus metrics.
-  - [ ] Implement main agent loop connecting CSV reader -> Spooler -> Pub/Sub publisher.
-  - [ ] Run all unit & integration tests and verify >80% test coverage.
+- [x] Task: Write Unit Tests for Observability Server & CLI Pipeline [0670033]
+  - [x] Write failing unit tests in `tests/test_server.py` for `GET /healthz` and `GET /metrics`.
+  - [x] Write failing integration test in `tests/test_pipeline.py` for end-to-end telemetry ingestion, spooling, and publishing.
+- [x] Task: Implement Observability Server & Agent Orchestrator CLI (`src/agent/server.py` & `src/agent/cli.py`) [0670033]
+  - [x] Implement FastAPI server exposing health and Prometheus metrics.
+  - [x] Implement main agent loop connecting CSV reader -> Spooler -> Pub/Sub publisher.
+  - [x] Run all unit & integration tests and verify >80% test coverage.
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 7: Docker Containerization & GitHub Actions CI/CD
