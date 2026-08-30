@@ -33,11 +33,11 @@
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [4aab870]
 
 ## Phase 5: GCP Pub/Sub Transport & Mock Publisher Client
-- [ ] Task: Write Unit Tests for Pub/Sub Transport & Mock Publisher
-  - [ ] Write failing unit tests in `tests/test_publisher.py` for GCP Pub/Sub client publishing, local mock publisher mode, and automatic fallback to SQLite spooler on network failure.
-- [ ] Task: Implement GCP Pub/Sub Publisher Module (`src/agent/publisher.py`)
-  - [ ] Implement `PubSubPublisher` supporting `google-cloud-pubsub` and mock transport.
-  - [ ] Run unit tests and confirm all tests pass (Green Phase).
+- [x] Task: Write Unit Tests for Pub/Sub Transport & Mock Publisher [d5005c3]
+  - [x] Write failing unit tests in `tests/test_publisher.py` for GCP Pub/Sub client publishing, local mock publisher mode, and automatic fallback to SQLite spooler on network failure.
+- [x] Task: Implement GCP Pub/Sub Publisher Module (`src/agent/publisher.py`) [d5005c3]
+  - [x] Implement `PubSubPublisher` supporting `google-cloud-pubsub` and mock transport.
+  - [x] Run unit tests and confirm all tests pass (Green Phase).
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 6: FastAPI Observability Server & Agent Pipeline CLI
