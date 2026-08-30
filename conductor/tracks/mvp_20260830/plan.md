@@ -51,9 +51,9 @@
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [0670033]
 
 ## Phase 7: Docker Containerization & GitHub Actions CI/CD
-- [ ] Task: Create Dockerfile & Docker Compose Setup
-  - [ ] Create multi-stage `Dockerfile` and `docker-compose.yml` for local container execution and Pub/Sub emulator integration.
-  - [ ] Verify local container build and execution.
-- [ ] Task: Implement GitHub Actions CI/CD Workflow (`.github/workflows/deploy.yml`)
-  - [ ] Create workflow file for running unit tests, building Docker image, uploading to Google Artifact Registry, and deploying to Cloud Run.
+- [x] Task: Create Dockerfile & Docker Compose Setup [1fa5d5b]
+  - [x] Create multi-stage `Dockerfile` and `docker-compose.yml` for local container execution and Pub/Sub emulator integration.
+  - [x] Verify local container build and execution.
+- [x] Task: Implement GitHub Actions CI/CD Workflow (`.github/workflows/deploy.yml`) [1fa5d5b]
+  - [x] Create workflow file for running unit tests, building Docker image, uploading to Google Artifact Registry, and deploying to Cloud Run.
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
