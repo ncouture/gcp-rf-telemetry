@@ -10,3 +10,4 @@ htmlcov/
 .pytest_cache/
 .ruff_cache/
 *.db
+hackrf_sweep_fixtures/
