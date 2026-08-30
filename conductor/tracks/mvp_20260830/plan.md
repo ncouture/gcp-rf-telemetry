@@ -40,7 +40,7 @@
   - [x] Run unit tests and confirm all tests pass (Green Phase).
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [d5005c3]
 
-## Phase 6: FastAPI Observability Server & Agent Pipeline CLI
+## Phase 6: FastAPI Observability Server & Agent Pipeline CLI [checkpoint: 0670033]
 - [x] Task: Write Unit Tests for Observability Server & CLI Pipeline [0670033]
   - [x] Write failing unit tests in `tests/test_server.py` for `GET /healthz` and `GET /metrics`.
   - [x] Write failing integration test in `tests/test_pipeline.py` for end-to-end telemetry ingestion, spooling, and publishing.
@@ -48,7 +48,7 @@
   - [x] Implement FastAPI server exposing health and Prometheus metrics.
   - [x] Implement main agent loop connecting CSV reader -> Spooler -> Pub/Sub publisher.
   - [x] Run all unit & integration tests and verify >80% test coverage.
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [0670033]
 
 ## Phase 7: Docker Containerization & GitHub Actions CI/CD
 - [ ] Task: Create Dockerfile & Docker Compose Setup
