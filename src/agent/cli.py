@@ -12,6 +12,7 @@ from agent.csv_reader import CsvTelemetryReader
 from agent.pipeline import TelemetryPipeline
 from agent.publisher import PubSubPublisher
 from agent.server import create_app
+from agent.sniffle_reader import SniffleJsonReader
 from agent.spooler import SqliteSpooler
 
 
@@ -22,8 +23,25 @@ def parse_args(args=None):
     parser.add_argument(
         "--csv-file",
         type=str,
-        default="data/sample_rf.csv",
-        help="Path to RF telemetry CSV file",
+        default=None,
+        help="Path to RF telemetry CSV file (default: data/sample_rf.csv if no input source given)",
+    )
+    parser.add_argument(
+        "--sniffle-json",
+        type=str,
+        default=None,
+        help="Path to Sniffle BLE JSON capture file",
+    )
+    parser.add_argument(
+        "--min-rssi",
+        type=int,
+        default=None,
+        help="Minimum RSSI threshold in dBm for BLE packets",
+    )
+    parser.add_argument(
+        "--realtime",
+        action="store_true",
+        help="Replay BLE capture in real-time according to packet timestamps",
     )
     parser.add_argument(
         "--project-id",
@@ -36,6 +54,12 @@ def parse_args(args=None):
         type=str,
         default=os.getenv("PUBSUB_TOPIC_ID", "rf-telemetry-stream"),
         help="GCP Pub/Sub Topic ID",
+    )
+    parser.add_argument(
+        "--ble-topic-id",
+        type=str,
+        default=os.getenv("BLE_PUBSUB_TOPIC_ID", None),
+        help="Dedicated GCP Pub/Sub Topic ID for BLE scans",
     )
     parser.add_argument(
         "--spool-db",
@@ -52,12 +76,12 @@ def parse_args(args=None):
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="Dry run mode: parse CSV and print count without publishing",
+        help="Dry run mode: parse data and print summary without publishing",
     )
     parser.add_argument(
         "--loop-csv",
         action="store_true",
-        help="Continuously loop CSV file emission",
+        help="Continuously loop data file emission",
     )
     parser.add_argument(
         "--interval-sec",
@@ -75,25 +99,50 @@ def parse_args(args=None):
 
 
 async def main_async(args):
-    print(f"Starting GCP RF Telemetry Agent (CSV: {args.csv_file})")
-
-    csv_path = Path(args.csv_file)
-    if not csv_path.exists():
-        print(f"Error: CSV file not found at {csv_path}")
-        sys.exit(1)
-
-    reader = CsvTelemetryReader(
-        csv_path=csv_path,
-        loop=args.loop_csv,
-        interval_sec=args.interval_sec,
-    )
+    # Determine input source
+    if args.sniffle_json:
+        source_path = Path(args.sniffle_json)
+        if not source_path.exists():
+            print(f"Error: Sniffle JSON file not found at {source_path}")
+            sys.exit(1)
+        print(f"Starting GCP RF Telemetry Agent with Sniffle BLE JSON ({source_path})")
+        reader = SniffleJsonReader(
+            json_path=source_path,
+            min_rssi=args.min_rssi,
+            realtime=args.realtime,
+            interval_sec=args.interval_sec if not args.realtime else 0.0,
+            loop=args.loop_csv,
+        )
+    else:
+        csv_file = args.csv_file or "data/sample_rf.csv"
+        csv_path = Path(csv_file)
+        if not csv_path.exists():
+            print(f"Error: CSV file not found at {csv_path}")
+            sys.exit(1)
+        print(f"Starting GCP RF Telemetry Agent with Spectral CSV ({csv_path})")
+        reader = CsvTelemetryReader(
+            csv_path=csv_path,
+            loop=args.loop_csv,
+            interval_sec=args.interval_sec,
+        )
 
     if args.dry_run:
         print("Dry run mode enabled. Reading telemetry...")
         count = 0
         async for msg in reader.read_telemetry():
-            print(f"Read telemetry message: device={msg.device_id}, timestamp={msg.timestamp_iso}, bins={len(msg.db_bins)}")
+            if hasattr(msg, "db_bins"):
+                print(
+                    f"Read spectral message: device={msg.device_id}, "
+                    f"timestamp={msg.timestamp_iso}, bins={len(msg.db_bins)}"
+                )
+            else:
+                print(
+                    f"Read BLE packet: device={msg.device_id}, mac={msg.advertiser_mac}, "
+                    f"pdu={msg.pdu_type}, rssi={msg.signal_dbm} dBm"
+                )
             count += 1
+            if count >= 10 and not args.sniffle_json:
+                break
         print(f"Dry run complete. Total messages read: {count}")
         return
 
@@ -103,6 +152,7 @@ async def main_async(args):
     publisher = PubSubPublisher(
         project_id=args.project_id,
         topic_id=args.topic_id,
+        ble_topic_id=args.ble_topic_id,
         mock_mode=args.mock_mode,
         spooler=spooler,
     )
@@ -116,7 +166,9 @@ async def main_async(args):
     server = uvicorn.Server(config)
 
     server_task = asyncio.create_task(server.serve())
-    pipeline_task = asyncio.create_task(pipeline.run_forever(poll_interval_sec=args.interval_sec))
+    pipeline_task = asyncio.create_task(
+        pipeline.run_forever(poll_interval_sec=args.interval_sec)
+    )
 
     try:
         await asyncio.gather(server_task, pipeline_task)

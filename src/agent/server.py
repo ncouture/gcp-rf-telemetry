@@ -16,6 +16,14 @@ SPOOL_QUEUE_SIZE = Gauge(
     "telemetry_spool_queue_size",
     "Current count of telemetry messages pending in offline spool queue",
 )
+BLE_PACKETS_PROCESSED_TOTAL = Counter(
+    "ble_packets_processed_total",
+    "Total count of BLE packets processed by agent",
+)
+BLE_PACKETS_CRC_ERRORS_TOTAL = Counter(
+    "ble_packets_crc_errors_total",
+    "Total count of corrupt BLE packets dropped due to CRC failure",
+)
 
 
 def create_app() -> FastAPI:

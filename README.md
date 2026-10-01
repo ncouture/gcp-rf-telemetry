@@ -4,7 +4,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-An IoT/Edge data collector agent designed to capture Radio Frequency (RF) spectral sweep telemetry from local sensors, Software Defined Radios (such as HackRF), or simulated CSV data streams. Telemetry is serialized using Protocol Buffers (`protobuf`) and streamed reliably to Google Cloud Platform (GCP) Cloud Pub/Sub and Cloud Run services with zero data loss during network disruptions.
+An IoT/Edge data collector agent designed to capture Radio Frequency (RF) spectral sweep telemetry and Bluetooth Low Energy (BLE) advertisement scans from local sensors, SDR hardware (such as HackRF), or simulated captures (CSV logs, Sniffle Wireshark JSON). Telemetry is serialized using Protocol Buffers (`protobuf`) with polymorphic envelope packaging and streamed reliably to Google Cloud Platform (GCP) Cloud Pub/Sub and Cloud Run services with zero data loss during network disruptions.
 
 ---
 
@@ -15,13 +15,18 @@ An IoT/Edge data collector agent designed to capture Radio Frequency (RF) spectr
 ```mermaid
 flowchart TD
     subgraph "Data Acquisition Layer"
-        HW["RF Hardware / SDR Sensor<br/>(e.g., HackRF / RTL-SDR)"] -.-> CSV["CSV Data Stream / Log<br/>(data/sample_rf.csv)"]
-        CSV --> Reader["CsvTelemetryReader<br/>(src/agent/csv_reader.py)"]
+        HW_RF["RF Hardware / SDR Sensor<br/>(e.g., HackRF / RTL-SDR)"] -.-> CSV["CSV Data Stream / Log<br/>(data/sample_rf.csv)"]
+        CSV --> CsvReader["CsvTelemetryReader<br/>(src/agent/csv_reader.py)"]
+
+        HW_BLE["Sniffle BLE Sniffer<br/>(TI CC26x2 / nRF52)"] -.-> JSON["Sniffle JSON Capture<br/>(sniffle.json)"]
+        JSON --> SniffleReader["SniffleJsonReader<br/>(src/agent/sniffle_reader.py)"]
     end
 
     subgraph "Collector Agent Core"
-        Reader -->|"Raw Spectral Records"| Pipeline["TelemetryPipeline<br/>(src/agent/pipeline.py)"]
-        Pipeline -->|"Proto Serialized Message"| Publisher["PubSubPublisher<br/>(src/agent/publisher.py)"]
+        CsvReader -->|"RfTelemetryMessage"| Pipeline["TelemetryPipeline<br/>(src/agent/pipeline.py)"]
+        SniffleReader -->|"BleAdvertisementMessage"| Pipeline
+
+        Pipeline -->|"Protobuf TelemetryEnvelope"| Publisher["PubSubPublisher<br/>(src/agent/publisher.py)"]
         
         Publisher -->|"On Network Failure"| Spooler[("SQLite Offline Buffer<br/>(telemetry_spool.db)")]
         Spooler -->|"Drain When Reconnected"| Publisher
@@ -30,9 +35,10 @@ flowchart TD
     end
 
     subgraph "GCP Cloud Infrastructure"
-        Publisher -->|"gRPC / HTTPS"| PubSub["Google Cloud Pub/Sub<br/>(Topic: rf-telemetry-stream)"]
-        PubSub --> Dataflow["Cloud Dataflow / BigQuery"]
-        PubSub --> CloudRun["Cloud Run Analytics Microservice"]
+        Publisher -->|"RF Sweeps Topic"| PubSubRF["Cloud Pub/Sub<br/>(Topic: rf-telemetry-stream)"]
+        Publisher -->|"BLE Scans Topic"| PubSubBLE["Cloud Pub/Sub<br/>(Topic: ble-telemetry-stream)"]
+        PubSubRF --> Dataflow["Cloud Dataflow / BigQuery"]
+        PubSubBLE --> CloudRun["Cloud Run Analytics Microservice"]
     end
 
     subgraph "Local Testing & Emulation"
@@ -47,13 +53,13 @@ The agent guarantees resilience across unreliable edge network connections throu
 ```mermaid
 sequenceDiagram
     autonumber
-    participant Reader as CsvTelemetryReader
+    participant Reader as Csv / Sniffle Reader
     participant Pipeline as TelemetryPipeline
     participant Publisher as PubSubPublisher
     participant Spooler as SqliteSpooler
     participant PubSub as GCP Pub/Sub
 
-    Reader->>Pipeline: Yield RfTelemetryMessage (Protobuf)
+    Reader->>Pipeline: Yield Telemetry Message (RF or BLE)
     Pipeline->>Publisher: publish(message)
     alt Network Online
         Publisher->>PubSub: Send message batch via gRPC
@@ -87,19 +93,21 @@ flowchart LR
 
 ## Key Features
 
-- **Protocol Buffers Encoding:** High-efficiency binary serialization using `telemetry.proto` for low-latency transmission of high-density spectral power bins.
-- **Dynamic Spectral Sweeps:** Robust CSV parsing handling variable-width power spectral density (`dB`) columns and duplicate header labels typical of sweep tools like `hackrf_sweep`.
+- **Dual RF & BLE Telemetry Drivers:** Ingests wideband spectral sweep CSV logs (`CsvTelemetryReader`) and Sniffle BLE advertisement captures (`SniffleJsonReader`).
+- **Low-Memory Streaming Parser:** Reads multi-gigabyte Sniffle Wireshark JSON packet dumps in constant O(1) memory without buffer exhaustion.
+- **Protocol Buffers Polymorphism:** Compact encoding of `RfTelemetryMessage` and `BleAdvertisementMessage` inside a unified `TelemetryEnvelope` (`oneof payload`).
+- **Signal Quality & Noise Filtering:** Configurable CRC checksum error filtering and minimum RSSI threshold (`--min-rssi`) for BLE scans.
 - **Zero Data Loss Guarantee:** Persistent SQLite disk queue (`telemetry_spool.db`) buffers readings during network dropouts and automatically drains when connectivity resumes.
-- **Flexible GCP Transports:** Supports direct Google Cloud Pub/Sub, local Google Cloud SDK Pub/Sub emulator (`PUBSUB_EMULATOR_HOST`), and pure offline mock mode.
-- **Observability Built-in:** Lightweight FastAPI server providing `/healthz` for Kubernetes/Docker/Cloud Run health probes and `/metrics` for Prometheus scraping.
-- **Container Native:** Multi-stage `Dockerfile` and `docker-compose.yml` pre-configured for edge deployment or cloud hosting.
-- **Automated CI/CD:** GitHub Actions pipeline configured for testing, linting, Artifact Registry publishing, and GCP Cloud Run deployments.
+- **Flexible GCP Transports:** Supports direct Google Cloud Pub/Sub, dedicated BLE topics (`--ble-topic-id`), local Pub/Sub emulator (`PUBSUB_EMULATOR_HOST`), and pure offline mock mode.
+- **Observability Built-in:** Lightweight FastAPI server providing `/healthz` for Kubernetes/Cloud Run health probes and `/metrics` for Prometheus scraping.
 
 ---
 
 ## Protobuf Telemetry Schema
 
-The core telemetry schema is defined in [`proto/telemetry.proto`](proto/telemetry.proto):
+The schemas are defined in [`proto/telemetry.proto`](proto/telemetry.proto):
+
+### 1. Spectral Sweep (`RfTelemetryMessage`)
 
 | Field Number | Field Name | Type | Description |
 |---|---|---|---|
@@ -112,6 +120,25 @@ The core telemetry schema is defined in [`proto/telemetry.proto`](proto/telemetr
 | `7` | `num_samples` | `int32` | Total FFT samples collected |
 | `8` | `db_bins` | `repeated float` | Power spectral density measurements in dB per bin |
 | `9` | `metadata` | `map<string, string>` | Extensible key-value metadata (gain, antenna, etc.) |
+
+### 2. BLE Advertisement (`BleAdvertisementMessage`)
+
+| Field Number | Field Name | Type | Description |
+|---|---|---|---|
+| `1` | `device_id` | `string` | Sniffer node identifier |
+| `2` | `timestamp_iso` | `string` | ISO 8601 UTC timestamp |
+| `3` | `timestamp_epoch_ms` | `int64` | Milliseconds since epoch |
+| `4` | `channel` | `int32` | BLE RF channel index (e.g., 0-39, advertising 37, 38, 39) |
+| `5` | `signal_dbm` | `int32` | Received Signal Strength Indicator (RSSI in dBm) |
+| `6` | `access_address` | `string` | BLE access address (hex string) |
+| `7` | `pdu_type` | `string` | Advertising PDU type (`ADV_IND`, `SCAN_REQ`, `SCAN_RSP`, etc.) |
+| `8` | `advertiser_mac` | `string` | Advertiser MAC address |
+| `9` | `scanner_mac` | `string` | Scanner MAC address (for scan requests) |
+| `10` | `device_name` | `string` | Extracted device name from EIR/AD entries |
+| `11` | `company_id` | `string` | Manufacturer company ID (e.g., `0x004c` for Apple) |
+| `12` | `adv_data_raw` | `bytes` | Raw advertisement payload / service data bytes |
+| `13` | `crc_valid` | `bool` | True if packet CRC checksum is valid |
+| `14` | `metadata` | `map<string, string>` | Extensible packet metadata |
 
 ---
 
@@ -137,19 +164,25 @@ gcp_rf_telemetry/
 │       ├── pipeline.py             # Telemetry orchestration loop
 │       ├── publisher.py            # GCP Pub/Sub & Mock transport
 │       ├── server.py               # FastAPI /healthz & Prometheus /metrics
+│       ├── sniffle_reader.py       # Streaming Sniffle BLE JSON parser
 │       ├── spooler.py              # SQLite offline buffer queue
 │       └── proto/
 │           ├── __init__.py
 │           └── telemetry_pb2.py    # Auto-generated Protobuf Python classes
 ├── tests/
 │   ├── fixtures/
-│   │   └── sample_rf.csv           # Test CSV fixture
+│   │   ├── sample_rf.csv           # Test CSV fixture
+│   │   └── sample_sniffle.json     # Test Sniffle JSON fixture
 │   ├── test_cli.py                 # CLI integration tests
+│   ├── test_cli_sniffle.py         # CLI Sniffle tests
 │   ├── test_csv_reader.py          # CSV parser tests
-│   ├── test_pipeline.py            # End-to-end pipeline & offline tests
-│   ├── test_proto.py               # Protobuf serialization tests
-│   ├── test_publisher.py           # Pub/Sub publisher & drain tests
+│   ├── test_pipeline.py            # Spectral pipeline tests
+│   ├── test_pipeline_ble.py        # BLE pipeline & spooler tests
+│   ├── test_proto.py               # RF Protobuf serialization tests
+│   ├── test_proto_ble.py           # BLE Protobuf & envelope tests
+│   ├── test_publisher.py           # Pub/Sub publisher tests
 │   ├── test_server.py              # Observability endpoint tests
+│   ├── test_sniffle_reader.py      # Sniffle BLE reader tests
 │   └── test_spooler.py             # SQLite queue tests
 ├── docker-compose.yml              # Agent + Pub/Sub emulator orchestration
 ├── Dockerfile                      # Multi-stage production container image
@@ -196,30 +229,35 @@ gcp_rf_telemetry/
 
 ## Running the Agent
 
-### 1. Dry Run Mode
-Validate and parse CSV telemetry records locally without streaming or starting the HTTP server:
+### 1. Ingesting Spectral Sweep CSV
 ```bash
+# Dry run
 python -m agent.cli --csv-file data/sample_rf.csv --dry-run
-```
 
-### 2. Mock Mode (Default)
-Run the pipeline with simulated Pub/Sub publishing, local SQLite spooling, and the observability server:
-```bash
+# Mock mode with local spooler & metrics server on port 8080
 python -m agent.cli --csv-file data/sample_rf.csv --mock-mode --port 8080
 ```
-Visit `http://localhost:8080/healthz` or `http://localhost:8080/metrics` in your browser.
 
-### 3. Live Google Cloud Pub/Sub
-Stream real-time telemetry to an active GCP Pub/Sub topic using Application Default Credentials (ADC):
+### 2. Ingesting Sniffle BLE Advertisement Scans
+```bash
+# Dry run with minimum RSSI filter (-60 dBm)
+python -m agent.cli --sniffle-json sniffle.json --min-rssi -60 --dry-run
+
+# Mock mode replaying packet time deltas in real-time
+python -m agent.cli --sniffle-json sniffle.json --realtime --mock-mode
+```
+
+### 3. Live Google Cloud Pub/Sub Streaming
+Stream real-time telemetry to GCP Pub/Sub topics:
 ```bash
 gcloud auth application-default login
 
 python -m agent.cli \
   --project-id my-gcp-project \
   --topic-id rf-telemetry-stream \
-  --csv-file data/sample_rf.csv \
-  --interval-sec 0.5 \
-  --loop-csv
+  --ble-topic-id ble-telemetry-stream \
+  --sniffle-json sniffle.json \
+  --min-rssi -75
 ```
 
 ---
@@ -227,7 +265,6 @@ python -m agent.cli \
 ## Docker & Local Emulation
 
 ### Run with Docker Compose (Agent + Pub/Sub Emulator)
-Test the full integration locally without incurring cloud costs:
 ```bash
 docker compose up --build
 ```
@@ -254,12 +291,16 @@ docker run -p 8080:8080 \
 | Flag | Default | Description |
 |---|---|---|
 | `--csv-file` | `data/sample_rf.csv` | Path to RF sweep CSV data file |
+| `--sniffle-json` | `None` | Path to Sniffle BLE JSON capture file |
+| `--min-rssi` | `None` | Minimum RSSI threshold in dBm for BLE packets |
+| `--realtime` | `False` | Replay BLE capture using packet time-delta timestamps |
 | `--project-id` | `gcp-rf-telemetry` | GCP Project ID (reads `GCP_PROJECT_ID` env) |
-| `--topic-id` | `rf-telemetry-stream` | GCP Pub/Sub Topic ID (reads `PUBSUB_TOPIC_ID` env) |
+| `--topic-id` | `rf-telemetry-stream` | Primary GCP Pub/Sub Topic ID (reads `PUBSUB_TOPIC_ID` env) |
+| `--ble-topic-id` | `None` | Dedicated GCP Pub/Sub Topic ID for BLE scans |
 | `--spool-db` | `telemetry_spool.db` | Path to SQLite buffer database |
 | `--mock-mode` | `True` | Run publisher in mock mode without GCP calls |
-| `--dry-run` | `False` | Parse CSV and print output without publishing |
-| `--loop-csv` | `False` | Continuously repeat CSV playback |
+| `--dry-run` | `False` | Parse data and print output without publishing |
+| `--loop-csv` | `False` | Continuously repeat file playback |
 | `--interval-sec` | `1.0` | Pause duration between emitted telemetry readings |
 | `--port` | `8080` | Port for `/healthz` and `/metrics` HTTP server |
 
@@ -268,7 +309,8 @@ docker run -p 8080:8080 \
 | Variable | Description |
 |---|---|
 | `GCP_PROJECT_ID` | GCP Project ID |
-| `PUBSUB_TOPIC_ID` | Target Pub/Sub Topic Name |
+| `PUBSUB_TOPIC_ID` | Primary Pub/Sub Topic Name |
+| `BLE_PUBSUB_TOPIC_ID` | Dedicated Pub/Sub Topic Name for BLE scans |
 | `PUBSUB_EMULATOR_HOST` | Host and port of Pub/Sub Emulator (`localhost:8085`) |
 | `GOOGLE_APPLICATION_CREDENTIALS` | Path to GCP Service Account JSON key |
 
@@ -276,13 +318,13 @@ docker run -p 8080:8080 \
 
 ## Observability & Health Probes
 
-The built-in FastAPI server runs concurrently alongside the data pipeline:
-
-- **`GET /healthz`**: Returns `200 OK` JSON response (`{"status": "ok", "service": "gcp-rf-telemetry-agent"}`) for container liveness and readiness checks.
+- **`GET /healthz`**: Returns `200 OK` JSON response (`{"status": "ok", "service": "gcp-rf-telemetry-agent"}`).
 - **`GET /metrics`**: Standard Prometheus text format endpoint tracking:
-  - `telemetry_messages_processed_total`: Total count of telemetry records ingested and processed.
+  - `telemetry_messages_processed_total`: Total count of telemetry records processed.
   - `telemetry_messages_spooled_total`: Total count of messages written to disk during network interruptions.
-  - `telemetry_spool_queue_size`: Gauge representing the current number of pending items in `telemetry_spool.db`.
+  - `telemetry_spool_queue_size`: Gauge representing pending items in `telemetry_spool.db`.
+  - `ble_packets_processed_total`: Total count of BLE frames processed.
+  - `ble_packets_crc_errors_total`: Total count of dropped corrupt BLE packets.
 
 ---
 
@@ -307,7 +349,3 @@ The GitHub Actions workflow (`.github/workflows/deploy.yml`) automates:
 2. **Build:** Compiles Protobuf schemas and builds the multi-stage Docker container.
 3. **Registry:** Pushes versioned tags and `latest` images to Google Artifact Registry.
 4. **Deploy:** Deploys the container to **GCP Cloud Run** with automatic revision management.
-
-**Required GitHub Repository Secrets:**
-- `GCP_PROJECT_ID`: Target Google Cloud Project ID.
-- `GCP_SA_KEY`: Service account JSON key with permissions for Artifact Registry and Cloud Run.
