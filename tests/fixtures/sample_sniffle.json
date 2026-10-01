@@ -1,0 +1,774 @@
+[
+  {
+    "_index": "packets-2026-10-01",
+    "_type": "doc",
+    "_score": null,
+    "_source": {
+      "layers": {
+        "frame": {
+          "frame.section_number": "1",
+          "frame.interface_id": "0",
+          "frame.interface_id_tree": {
+            "frame.interface_name": "sniffle",
+            "frame.interface_description": "Sniffle BLE sniffer"
+          },
+          "frame.encap_type": "161",
+          "frame.time": "Oct  1, 2026 02:30:00.352756000 EDT",
+          "frame.time_utc": "Oct  1, 2026 06:30:00.352756000 UTC",
+          "frame.time_epoch": "1790836200.352756000",
+          "frame.offset_shift": "0.000000000",
+          "frame.time_delta": "0.000000000",
+          "frame.time_delta_displayed": "0.000000000",
+          "frame.time_relative": "0.000000000",
+          "frame.number": "1",
+          "frame.len": "31",
+          "frame.cap_len": "31",
+          "frame.marked": "0",
+          "frame.ignored": "0",
+          "frame.protocols": "bluetooth:btle_rf:btle"
+        },
+        "bluetooth": "Bluetooth",
+        "btle_rf": {
+          "btle_rf.channel": "0",
+          "btle_rf.signal_dbm": "-57",
+          "btle_rf.signed_byte_unused": "-128",
+          "btle_rf.unsigned_byte_unused": "0",
+          "btle_rf.reference_access_address": "0x8e89bed6",
+          "btle_rf.flags": "0x0c13",
+          "btle_rf.flags_tree": {
+            "btle_rf.flags.dewhitened": "1",
+            "btle_rf.flags.signal_dbm_valid": "1",
+            "btle_rf.flags.noise_dbm_valid": "0",
+            "btle_rf.flags.decrypted": "0",
+            "btle_rf.flags.reference_access_address_valid": "1",
+            "btle_rf.flags.access_address_offenses_valid": "0",
+            "btle_rf.flags.channel_aliased": "0",
+            "btle_rf.pdu_type": "0",
+            "btle_rf.flags.crc_checked": "1",
+            "btle_rf.flags.crc_valid": "1",
+            "btle_rf.flags.mic_checked": "0",
+            "btle_rf.flags.mic_valid": "0",
+            "btle_rf.phy": "0"
+          }
+        },
+        "btle": {
+          "btle.access_address": "0x8e89bed6",
+          "btle.advertising_header": "0x0cc3",
+          "btle.advertising_header_tree": {
+            "btle.advertising_header.pdu_type": "0x03",
+            "btle.advertising_header.rfu.1": "0",
+            "btle.advertising_header.rfu.2": "0",
+            "btle.advertising_header.randomized_tx": "1",
+            "btle.advertising_header.randomized_rx": "1",
+            "btle.advertising_header.length": "12"
+          },
+          "btle.length": "12",
+          "btle.scanning_address": "6a:b6:b8:68:bc:d8",
+          "btle.advertising_address": "08:30:dc:4e:3d:3c",
+          "btle.crc": "0xc9da10"
+        }
+      }
+    }
+  },
+  {
+    "_index": "packets-2026-10-01",
+    "_type": "doc",
+    "_score": null,
+    "_source": {
+      "layers": {
+        "frame": {
+          "frame.section_number": "1",
+          "frame.interface_id": "0",
+          "frame.interface_id_tree": {
+            "frame.interface_name": "sniffle",
+            "frame.interface_description": "Sniffle BLE sniffer"
+          },
+          "frame.encap_type": "161",
+          "frame.time": "Oct  1, 2026 02:30:00.368502000 EDT",
+          "frame.time_utc": "Oct  1, 2026 06:30:00.368502000 UTC",
+          "frame.time_epoch": "1790836200.368502000",
+          "frame.offset_shift": "0.000000000",
+          "frame.time_delta": "0.015746000",
+          "frame.time_delta_displayed": "0.015746000",
+          "frame.time_relative": "0.015746000",
+          "frame.number": "2",
+          "frame.len": "53",
+          "frame.cap_len": "53",
+          "frame.marked": "0",
+          "frame.ignored": "0",
+          "frame.protocols": "bluetooth:btle_rf:btle:btcommon"
+        },
+        "bluetooth": "Bluetooth",
+        "btle_rf": {
+          "btle_rf.channel": "0",
+          "btle_rf.signal_dbm": "-56",
+          "btle_rf.signed_byte_unused": "-128",
+          "btle_rf.unsigned_byte_unused": "0",
+          "btle_rf.reference_access_address": "0x8e89bed6",
+          "btle_rf.flags": "0x0c13",
+          "btle_rf.flags_tree": {
+            "btle_rf.flags.dewhitened": "1",
+            "btle_rf.flags.signal_dbm_valid": "1",
+            "btle_rf.flags.noise_dbm_valid": "0",
+            "btle_rf.flags.decrypted": "0",
+            "btle_rf.flags.reference_access_address_valid": "1",
+            "btle_rf.flags.access_address_offenses_valid": "0",
+            "btle_rf.flags.channel_aliased": "0",
+            "btle_rf.pdu_type": "0",
+            "btle_rf.flags.crc_checked": "1",
+            "btle_rf.flags.crc_valid": "1",
+            "btle_rf.flags.mic_checked": "0",
+            "btle_rf.flags.mic_valid": "0",
+            "btle_rf.phy": "0"
+          }
+        },
+        "btle": {
+          "btle.access_address": "0x8e89bed6",
+          "btle.advertising_header": "0x2246",
+          "btle.advertising_header_tree": {
+            "btle.advertising_header.pdu_type": "0x06",
+            "btle.advertising_header.rfu.1": "0",
+            "btle.advertising_header.rfu.2": "0",
+            "btle.advertising_header.randomized_tx": "1",
+            "btle.advertising_header.rfu.4": "0",
+            "btle.advertising_header.length": "34"
+          },
+          "btle.length": "34",
+          "btle.advertising_address": "6a:b6:b8:68:bc:d8",
+          "btcommon.eir_ad.advertising_data": {
+            "btcommon.eir_ad.entry": {
+              "btcommon.eir_ad.entry.length": "23",
+              "btcommon.eir_ad.entry.type": "0x16",
+              "btcommon.eir_ad.entry.uuid_16": "0xfe9f",
+              "btcommon.eir_ad.entry.service_data": "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"
+            }
+          },
+          "btle.crc": "0x24a428"
+        }
+      }
+    }
+  },
+  {
+    "_index": "packets-2026-10-01",
+    "_type": "doc",
+    "_score": null,
+    "_source": {
+      "layers": {
+        "frame": {
+          "frame.section_number": "1",
+          "frame.interface_id": "0",
+          "frame.interface_id_tree": {
+            "frame.interface_name": "sniffle",
+            "frame.interface_description": "Sniffle BLE sniffer"
+          },
+          "frame.encap_type": "161",
+          "frame.time": "Oct  1, 2026 02:30:00.369325000 EDT",
+          "frame.time_utc": "Oct  1, 2026 06:30:00.369325000 UTC",
+          "frame.time_epoch": "1790836200.369325000",
+          "frame.offset_shift": "0.000000000",
+          "frame.time_delta": "0.000823000",
+          "frame.time_delta_displayed": "0.000823000",
+          "frame.time_relative": "0.016569000",
+          "frame.number": "3",
+          "frame.len": "35",
+          "frame.cap_len": "35",
+          "frame.marked": "0",
+          "frame.ignored": "0",
+          "frame.protocols": "bluetooth:btle_rf:btle:btcommon"
+        },
+        "bluetooth": "Bluetooth",
+        "btle_rf": {
+          "btle_rf.channel": "0",
+          "btle_rf.signal_dbm": "-57",
+          "btle_rf.signed_byte_unused": "-128",
+          "btle_rf.unsigned_byte_unused": "0",
+          "btle_rf.reference_access_address": "0x8e89bed6",
+          "btle_rf.flags": "0x0c13",
+          "btle_rf.flags_tree": {
+            "btle_rf.flags.dewhitened": "1",
+            "btle_rf.flags.signal_dbm_valid": "1",
+            "btle_rf.flags.noise_dbm_valid": "0",
+            "btle_rf.flags.decrypted": "0",
+            "btle_rf.flags.reference_access_address_valid": "1",
+            "btle_rf.flags.access_address_offenses_valid": "0",
+            "btle_rf.flags.channel_aliased": "0",
+            "btle_rf.pdu_type": "0",
+            "btle_rf.flags.crc_checked": "1",
+            "btle_rf.flags.crc_valid": "1",
+            "btle_rf.flags.mic_checked": "0",
+            "btle_rf.flags.mic_valid": "0",
+            "btle_rf.phy": "0"
+          }
+        },
+        "btle": {
+          "btle.access_address": "0x8e89bed6",
+          "btle.advertising_header": "0x1044",
+          "btle.advertising_header_tree": {
+            "btle.advertising_header.pdu_type": "0x04",
+            "btle.advertising_header.rfu.1": "0",
+            "btle.advertising_header.rfu.2": "0",
+            "btle.advertising_header.randomized_tx": "1",
+            "btle.advertising_header.rfu.4": "0",
+            "btle.advertising_header.length": "16"
+          },
+          "btle.length": "16",
+          "btle.advertising_address": "6a:b6:b8:68:bc:d8",
+          "btle.scan_response_data": "09:ff:e0:00:56:4a:ca:30:03:27",
+          "btle.scan_response_data_tree": {
+            "btcommon.eir_ad.advertising_data": {
+              "btcommon.eir_ad.entry": {
+                "btcommon.eir_ad.entry.length": "9",
+                "btcommon.eir_ad.entry.type": "0xff",
+                "btcommon.eir_ad.entry.company_id": "0x00e0",
+                "btcommon.eir_ad.entry.data": "56:4a:ca:30:03:27",
+                "btcommon.eir_ad.entry.data_tree": {
+                  "_ws.expert": {
+                    "btcommon.eir_ad.undecoded": "",
+                    "_ws.expert.message": "Undecoded",
+                    "_ws.expert.severity": "4194304",
+                    "_ws.expert.group": "83886080"
+                  }
+                }
+              }
+            }
+          },
+          "btle.crc": "0x6e6bca"
+        }
+      }
+    }
+  },
+  {
+    "_index": "packets-2026-10-01",
+    "_type": "doc",
+    "_score": null,
+    "_source": {
+      "layers": {
+        "frame": {
+          "frame.section_number": "1",
+          "frame.interface_id": "0",
+          "frame.interface_id_tree": {
+            "frame.interface_name": "sniffle",
+            "frame.interface_description": "Sniffle BLE sniffer"
+          },
+          "frame.encap_type": "161",
+          "frame.time": "Oct  1, 2026 02:30:00.407616000 EDT",
+          "frame.time_utc": "Oct  1, 2026 06:30:00.407616000 UTC",
+          "frame.time_epoch": "1790836200.407616000",
+          "frame.offset_shift": "0.000000000",
+          "frame.time_delta": "0.038291000",
+          "frame.time_delta_displayed": "0.038291000",
+          "frame.time_relative": "0.054860000",
+          "frame.number": "4",
+          "frame.len": "44",
+          "frame.cap_len": "44",
+          "frame.marked": "0",
+          "frame.ignored": "0",
+          "frame.protocols": "bluetooth:btle_rf:btle:btcommon"
+        },
+        "bluetooth": "Bluetooth",
+        "btle_rf": {
+          "btle_rf.channel": "0",
+          "btle_rf.signal_dbm": "-60",
+          "btle_rf.signed_byte_unused": "-128",
+          "btle_rf.unsigned_byte_unused": "0",
+          "btle_rf.reference_access_address": "0x8e89bed6",
+          "btle_rf.flags": "0x0c13",
+          "btle_rf.flags_tree": {
+            "btle_rf.flags.dewhitened": "1",
+            "btle_rf.flags.signal_dbm_valid": "1",
+            "btle_rf.flags.noise_dbm_valid": "0",
+            "btle_rf.flags.decrypted": "0",
+            "btle_rf.flags.reference_access_address_valid": "1",
+            "btle_rf.flags.access_address_offenses_valid": "0",
+            "btle_rf.flags.channel_aliased": "0",
+            "btle_rf.pdu_type": "0",
+            "btle_rf.flags.crc_checked": "1",
+            "btle_rf.flags.crc_valid": "1",
+            "btle_rf.flags.mic_checked": "0",
+            "btle_rf.flags.mic_valid": "0",
+            "btle_rf.phy": "0"
+          }
+        },
+        "btle": {
+          "btle.access_address": "0x8e89bed6",
+          "btle.advertising_header": "0x1960",
+          "btle.advertising_header_tree": {
+            "btle.advertising_header.pdu_type": "0x00",
+            "btle.advertising_header.rfu.1": "0",
+            "btle.advertising_header.ch_sel": "1",
+            "btle.advertising_header.randomized_tx": "1",
+            "btle.advertising_header.rfu.4": "0",
+            "btle.advertising_header.length": "25"
+          },
+          "btle.length": "25",
+          "btle.advertising_address": "79:d6:7c:c4:e4:c6",
+          "btcommon.eir_ad.advertising_data": {
+            "btcommon.eir_ad.entry": {
+              "btcommon.eir_ad.entry.length": "2",
+              "btcommon.eir_ad.entry.type": "0x0a",
+              "btcommon.eir_ad.entry.power_level": "0"
+            }
+          },
+          "btle.crc": "0x385dd3"
+        }
+      }
+    }
+  },
+  {
+    "_index": "packets-2026-10-01",
+    "_type": "doc",
+    "_score": null,
+    "_source": {
+      "layers": {
+        "frame": {
+          "frame.section_number": "1",
+          "frame.interface_id": "0",
+          "frame.interface_id_tree": {
+            "frame.interface_name": "sniffle",
+            "frame.interface_description": "Sniffle BLE sniffer"
+          },
+          "frame.encap_type": "161",
+          "frame.time": "Oct  1, 2026 02:30:00.408370000 EDT",
+          "frame.time_utc": "Oct  1, 2026 06:30:00.408370000 UTC",
+          "frame.time_epoch": "1790836200.408370000",
+          "frame.offset_shift": "0.000000000",
+          "frame.time_delta": "0.000754000",
+          "frame.time_delta_displayed": "0.000754000",
+          "frame.time_relative": "0.055614000",
+          "frame.number": "5",
+          "frame.len": "46",
+          "frame.cap_len": "46",
+          "frame.marked": "0",
+          "frame.ignored": "0",
+          "frame.protocols": "bluetooth:btle_rf:btle:btcommon"
+        },
+        "bluetooth": "Bluetooth",
+        "btle_rf": {
+          "btle_rf.channel": "0",
+          "btle_rf.signal_dbm": "-59",
+          "btle_rf.signed_byte_unused": "-128",
+          "btle_rf.unsigned_byte_unused": "0",
+          "btle_rf.reference_access_address": "0x8e89bed6",
+          "btle_rf.flags": "0x0c13",
+          "btle_rf.flags_tree": {
+            "btle_rf.flags.dewhitened": "1",
+            "btle_rf.flags.signal_dbm_valid": "1",
+            "btle_rf.flags.noise_dbm_valid": "0",
+            "btle_rf.flags.decrypted": "0",
+            "btle_rf.flags.reference_access_address_valid": "1",
+            "btle_rf.flags.access_address_offenses_valid": "0",
+            "btle_rf.flags.channel_aliased": "0",
+            "btle_rf.pdu_type": "0",
+            "btle_rf.flags.crc_checked": "1",
+            "btle_rf.flags.crc_valid": "1",
+            "btle_rf.flags.mic_checked": "0",
+            "btle_rf.flags.mic_valid": "0",
+            "btle_rf.phy": "0"
+          }
+        },
+        "btle": {
+          "btle.access_address": "0x8e89bed6",
+          "btle.advertising_header": "0x1b64",
+          "btle.advertising_header_tree": {
+            "btle.advertising_header.pdu_type": "0x04",
+            "btle.advertising_header.rfu.1": "0",
+            "btle.advertising_header.rfu.2": "1",
+            "btle.advertising_header.randomized_tx": "1",
+            "btle.advertising_header.rfu.4": "0",
+            "btle.advertising_header.length": "27"
+          },
+          "btle.length": "27",
+          "btle.advertising_address": "79:d6:7c:c4:e4:c6",
+          "btle.scan_response_data": "14:ff:4c:00:01:00:00:00:00:00:00:00:00:00:00:00:00:80:00:00:00",
+          "btle.scan_response_data_tree": {
+            "btcommon.eir_ad.advertising_data": {
+              "btcommon.eir_ad.entry": {
+                "btcommon.eir_ad.entry.length": "20",
+                "btcommon.eir_ad.entry.type": "0xff",
+                "btcommon.eir_ad.entry.company_id": "0x004c",
+                "btcommon.eir_ad.entry.data": "01:00:00:00:00:00:00:00:00:00:00:00:00:80:00:00:00",
+                "btcommon.eir_ad.entry.data_tree": {
+                  "_ws.expert": {
+                    "btcommon.eir_ad.undecoded": "",
+                    "_ws.expert.message": "Undecoded",
+                    "_ws.expert.severity": "4194304",
+                    "_ws.expert.group": "83886080"
+                  }
+                }
+              }
+            }
+          },
+          "btle.crc": "0xe035c4"
+        }
+      }
+    }
+  },
+  {
+    "_index": "packets-2026-10-01",
+    "_type": "doc",
+    "_score": null,
+    "_source": {
+      "layers": {
+        "frame": {
+          "frame.section_number": "1",
+          "frame.interface_id": "0",
+          "frame.interface_id_tree": {
+            "frame.interface_name": "sniffle",
+            "frame.interface_description": "Sniffle BLE sniffer"
+          },
+          "frame.encap_type": "161",
+          "frame.time": "Oct  1, 2026 02:30:00.529127000 EDT",
+          "frame.time_utc": "Oct  1, 2026 06:30:00.529127000 UTC",
+          "frame.time_epoch": "1790836200.529127000",
+          "frame.offset_shift": "0.000000000",
+          "frame.time_delta": "0.120757000",
+          "frame.time_delta_displayed": "0.120757000",
+          "frame.time_relative": "0.176371000",
+          "frame.number": "6",
+          "frame.len": "31",
+          "frame.cap_len": "31",
+          "frame.marked": "0",
+          "frame.ignored": "0",
+          "frame.protocols": "bluetooth:btle_rf:btle"
+        },
+        "bluetooth": "Bluetooth",
+        "btle_rf": {
+          "btle_rf.channel": "0",
+          "btle_rf.signal_dbm": "-57",
+          "btle_rf.signed_byte_unused": "-128",
+          "btle_rf.unsigned_byte_unused": "0",
+          "btle_rf.reference_access_address": "0x8e89bed6",
+          "btle_rf.flags": "0x0c13",
+          "btle_rf.flags_tree": {
+            "btle_rf.flags.dewhitened": "1",
+            "btle_rf.flags.signal_dbm_valid": "1",
+            "btle_rf.flags.noise_dbm_valid": "0",
+            "btle_rf.flags.decrypted": "0",
+            "btle_rf.flags.reference_access_address_valid": "1",
+            "btle_rf.flags.access_address_offenses_valid": "0",
+            "btle_rf.flags.channel_aliased": "0",
+            "btle_rf.pdu_type": "0",
+            "btle_rf.flags.crc_checked": "1",
+            "btle_rf.flags.crc_valid": "1",
+            "btle_rf.flags.mic_checked": "0",
+            "btle_rf.flags.mic_valid": "0",
+            "btle_rf.phy": "0"
+          }
+        },
+        "btle": {
+          "btle.access_address": "0x8e89bed6",
+          "btle.advertising_header": "0x0c43",
+          "btle.advertising_header_tree": {
+            "btle.advertising_header.pdu_type": "0x03",
+            "btle.advertising_header.rfu.1": "0",
+            "btle.advertising_header.rfu.2": "0",
+            "btle.advertising_header.randomized_tx": "1",
+            "btle.advertising_header.randomized_rx": "0",
+            "btle.advertising_header.length": "12"
+          },
+          "btle.length": "12",
+          "btle.scanning_address": "6a:b6:b8:68:bc:d8",
+          "btle.advertising_address": "d0:ef:76:6a:46:76",
+          "btle.crc": "0x2f6efb"
+        }
+      }
+    }
+  },
+  {
+    "_index": "packets-2026-10-01",
+    "_type": "doc",
+    "_score": null,
+    "_source": {
+      "layers": {
+        "frame": {
+          "frame.section_number": "1",
+          "frame.interface_id": "0",
+          "frame.interface_id_tree": {
+            "frame.interface_name": "sniffle",
+            "frame.interface_description": "Sniffle BLE sniffer"
+          },
+          "frame.encap_type": "161",
+          "frame.time": "Oct  1, 2026 02:30:00.630529000 EDT",
+          "frame.time_utc": "Oct  1, 2026 06:30:00.630529000 UTC",
+          "frame.time_epoch": "1790836200.630529000",
+          "frame.offset_shift": "0.000000000",
+          "frame.time_delta": "0.101402000",
+          "frame.time_delta_displayed": "0.101402000",
+          "frame.time_relative": "0.277773000",
+          "frame.number": "7",
+          "frame.len": "53",
+          "frame.cap_len": "53",
+          "frame.marked": "0",
+          "frame.ignored": "0",
+          "frame.protocols": "bluetooth:btle_rf:btle:btcommon"
+        },
+        "bluetooth": "Bluetooth",
+        "btle_rf": {
+          "btle_rf.channel": "0",
+          "btle_rf.signal_dbm": "-54",
+          "btle_rf.signed_byte_unused": "-128",
+          "btle_rf.unsigned_byte_unused": "0",
+          "btle_rf.reference_access_address": "0x8e89bed6",
+          "btle_rf.flags": "0x0c13",
+          "btle_rf.flags_tree": {
+            "btle_rf.flags.dewhitened": "1",
+            "btle_rf.flags.signal_dbm_valid": "1",
+            "btle_rf.flags.noise_dbm_valid": "0",
+            "btle_rf.flags.decrypted": "0",
+            "btle_rf.flags.reference_access_address_valid": "1",
+            "btle_rf.flags.access_address_offenses_valid": "0",
+            "btle_rf.flags.channel_aliased": "0",
+            "btle_rf.pdu_type": "0",
+            "btle_rf.flags.crc_checked": "1",
+            "btle_rf.flags.crc_valid": "1",
+            "btle_rf.flags.mic_checked": "0",
+            "btle_rf.flags.mic_valid": "0",
+            "btle_rf.phy": "0"
+          }
+        },
+        "btle": {
+          "btle.access_address": "0x8e89bed6",
+          "btle.advertising_header": "0x2246",
+          "btle.advertising_header_tree": {
+            "btle.advertising_header.pdu_type": "0x06",
+            "btle.advertising_header.rfu.1": "0",
+            "btle.advertising_header.rfu.2": "0",
+            "btle.advertising_header.randomized_tx": "1",
+            "btle.advertising_header.rfu.4": "0",
+            "btle.advertising_header.length": "34"
+          },
+          "btle.length": "34",
+          "btle.advertising_address": "6a:b6:b8:68:bc:d8",
+          "btcommon.eir_ad.advertising_data": {
+            "btcommon.eir_ad.entry": {
+              "btcommon.eir_ad.entry.length": "23",
+              "btcommon.eir_ad.entry.type": "0x16",
+              "btcommon.eir_ad.entry.uuid_16": "0xfe9f",
+              "btcommon.eir_ad.entry.service_data": "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"
+            }
+          },
+          "btle.crc": "0x24a428"
+        }
+      }
+    }
+  },
+  {
+    "_index": "packets-2026-10-01",
+    "_type": "doc",
+    "_score": null,
+    "_source": {
+      "layers": {
+        "frame": {
+          "frame.section_number": "1",
+          "frame.interface_id": "0",
+          "frame.interface_id_tree": {
+            "frame.interface_name": "sniffle",
+            "frame.interface_description": "Sniffle BLE sniffer"
+          },
+          "frame.encap_type": "161",
+          "frame.time": "Oct  1, 2026 02:30:00.714592000 EDT",
+          "frame.time_utc": "Oct  1, 2026 06:30:00.714592000 UTC",
+          "frame.time_epoch": "1790836200.714592000",
+          "frame.offset_shift": "0.000000000",
+          "frame.time_delta": "0.084063000",
+          "frame.time_delta_displayed": "0.084063000",
+          "frame.time_relative": "0.361836000",
+          "frame.number": "8",
+          "frame.len": "31",
+          "frame.cap_len": "31",
+          "frame.marked": "0",
+          "frame.ignored": "0",
+          "frame.protocols": "bluetooth:btle_rf:btle"
+        },
+        "bluetooth": "Bluetooth",
+        "btle_rf": {
+          "btle_rf.channel": "0",
+          "btle_rf.signal_dbm": "-56",
+          "btle_rf.signed_byte_unused": "-128",
+          "btle_rf.unsigned_byte_unused": "0",
+          "btle_rf.reference_access_address": "0x8e89bed6",
+          "btle_rf.flags": "0x0c13",
+          "btle_rf.flags_tree": {
+            "btle_rf.flags.dewhitened": "1",
+            "btle_rf.flags.signal_dbm_valid": "1",
+            "btle_rf.flags.noise_dbm_valid": "0",
+            "btle_rf.flags.decrypted": "0",
+            "btle_rf.flags.reference_access_address_valid": "1",
+            "btle_rf.flags.access_address_offenses_valid": "0",
+            "btle_rf.flags.channel_aliased": "0",
+            "btle_rf.pdu_type": "0",
+            "btle_rf.flags.crc_checked": "1",
+            "btle_rf.flags.crc_valid": "1",
+            "btle_rf.flags.mic_checked": "0",
+            "btle_rf.flags.mic_valid": "0",
+            "btle_rf.phy": "0"
+          }
+        },
+        "btle": {
+          "btle.access_address": "0x8e89bed6",
+          "btle.advertising_header": "0x0c43",
+          "btle.advertising_header_tree": {
+            "btle.advertising_header.pdu_type": "0x03",
+            "btle.advertising_header.rfu.1": "0",
+            "btle.advertising_header.rfu.2": "0",
+            "btle.advertising_header.randomized_tx": "1",
+            "btle.advertising_header.randomized_rx": "0",
+            "btle.advertising_header.length": "12"
+          },
+          "btle.length": "12",
+          "btle.scanning_address": "44:fb:6f:ce:ec:64",
+          "btle.advertising_address": "fc:3c:d7:a8:08:97",
+          "btle.crc": "0xb931e1"
+        }
+      }
+    }
+  },
+  {
+    "_index": "packets-2026-10-01",
+    "_type": "doc",
+    "_score": null,
+    "_source": {
+      "layers": {
+        "frame": {
+          "frame.section_number": "1",
+          "frame.interface_id": "0",
+          "frame.interface_id_tree": {
+            "frame.interface_name": "sniffle",
+            "frame.interface_description": "Sniffle BLE sniffer"
+          },
+          "frame.encap_type": "161",
+          "frame.time": "Oct  1, 2026 02:30:00.749236000 EDT",
+          "frame.time_utc": "Oct  1, 2026 06:30:00.749236000 UTC",
+          "frame.time_epoch": "1790836200.749236000",
+          "frame.offset_shift": "0.000000000",
+          "frame.time_delta": "0.034644000",
+          "frame.time_delta_displayed": "0.034644000",
+          "frame.time_relative": "0.396480000",
+          "frame.number": "9",
+          "frame.len": "39",
+          "frame.cap_len": "39",
+          "frame.marked": "0",
+          "frame.ignored": "0",
+          "frame.protocols": "bluetooth:btle_rf:btle:btcommon"
+        },
+        "bluetooth": "Bluetooth",
+        "btle_rf": {
+          "btle_rf.channel": "0",
+          "btle_rf.signal_dbm": "-37",
+          "btle_rf.signed_byte_unused": "-128",
+          "btle_rf.unsigned_byte_unused": "0",
+          "btle_rf.reference_access_address": "0x8e89bed6",
+          "btle_rf.flags": "0x0c13",
+          "btle_rf.flags_tree": {
+            "btle_rf.flags.dewhitened": "1",
+            "btle_rf.flags.signal_dbm_valid": "1",
+            "btle_rf.flags.noise_dbm_valid": "0",
+            "btle_rf.flags.decrypted": "0",
+            "btle_rf.flags.reference_access_address_valid": "1",
+            "btle_rf.flags.access_address_offenses_valid": "0",
+            "btle_rf.flags.channel_aliased": "0",
+            "btle_rf.pdu_type": "0",
+            "btle_rf.flags.crc_checked": "1",
+            "btle_rf.flags.crc_valid": "1",
+            "btle_rf.flags.mic_checked": "0",
+            "btle_rf.flags.mic_valid": "0",
+            "btle_rf.phy": "0"
+          }
+        },
+        "btle": {
+          "btle.access_address": "0x8e89bed6",
+          "btle.advertising_header": "0x1440",
+          "btle.advertising_header_tree": {
+            "btle.advertising_header.pdu_type": "0x00",
+            "btle.advertising_header.rfu.1": "0",
+            "btle.advertising_header.ch_sel": "0",
+            "btle.advertising_header.randomized_tx": "1",
+            "btle.advertising_header.rfu.4": "0",
+            "btle.advertising_header.length": "20"
+          },
+          "btle.length": "20",
+          "btle.advertising_address": "46:84:6d:6e:ce:f9",
+          "btcommon.eir_ad.advertising_data": {
+            "btcommon.eir_ad.entry": {
+              "btcommon.eir_ad.entry.length": "6",
+              "btcommon.eir_ad.entry.type": "0x09",
+              "btcommon.eir_ad.entry.device_name": "NJBPL"
+            }
+          },
+          "btle.crc": "0x7be24d"
+        }
+      }
+    }
+  },
+  {
+    "_index": "packets-2026-10-01",
+    "_type": "doc",
+    "_score": null,
+    "_source": {
+      "layers": {
+        "frame": {
+          "frame.section_number": "1",
+          "frame.interface_id": "0",
+          "frame.interface_id_tree": {
+            "frame.interface_name": "sniffle",
+            "frame.interface_description": "Sniffle BLE sniffer"
+          },
+          "frame.encap_type": "161",
+          "frame.time": "Oct  1, 2026 02:30:00.777083000 EDT",
+          "frame.time_utc": "Oct  1, 2026 06:30:00.777083000 UTC",
+          "frame.time_epoch": "1790836200.777083000",
+          "frame.offset_shift": "0.000000000",
+          "frame.time_delta": "0.027847000",
+          "frame.time_delta_displayed": "0.027847000",
+          "frame.time_relative": "0.424327000",
+          "frame.number": "10",
+          "frame.len": "31",
+          "frame.cap_len": "31",
+          "frame.marked": "0",
+          "frame.ignored": "0",
+          "frame.protocols": "bluetooth:btle_rf:btle"
+        },
+        "bluetooth": "Bluetooth",
+        "btle_rf": {
+          "btle_rf.channel": "0",
+          "btle_rf.signal_dbm": "-54",
+          "btle_rf.signed_byte_unused": "-128",
+          "btle_rf.unsigned_byte_unused": "0",
+          "btle_rf.reference_access_address": "0x8e89bed6",
+          "btle_rf.flags": "0x0c13",
+          "btle_rf.flags_tree": {
+            "btle_rf.flags.dewhitened": "1",
+            "btle_rf.flags.signal_dbm_valid": "1",
+            "btle_rf.flags.noise_dbm_valid": "0",
+            "btle_rf.flags.decrypted": "0",
+            "btle_rf.flags.reference_access_address_valid": "1",
+            "btle_rf.flags.access_address_offenses_valid": "0",
+            "btle_rf.flags.channel_aliased": "0",
+            "btle_rf.pdu_type": "0",
+            "btle_rf.flags.crc_checked": "1",
+            "btle_rf.flags.crc_valid": "1",
+            "btle_rf.flags.mic_checked": "0",
+            "btle_rf.flags.mic_valid": "0",
+            "btle_rf.phy": "0"
+          }
+        },
+        "btle": {
+          "btle.access_address": "0x8e89bed6",
+          "btle.advertising_header": "0x0cc3",
+          "btle.advertising_header_tree": {
+            "btle.advertising_header.pdu_type": "0x03",
+            "btle.advertising_header.rfu.1": "0",
+            "btle.advertising_header.rfu.2": "0",
+            "btle.advertising_header.randomized_tx": "1",
+            "btle.advertising_header.randomized_rx": "1",
+            "btle.advertising_header.length": "12"
+          },
+          "btle.length": "12",
+          "btle.scanning_address": "6a:b6:b8:68:bc:d8",
+          "btle.advertising_address": "75:57:e0:50:21:e7",
+          "btle.crc": "0xbe8169"
+        }
+      }
+    }
+  }
+]

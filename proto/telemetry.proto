@@ -13,3 +13,27 @@ message RfTelemetryMessage {
   repeated float db_bins = 8;
   map<string, string> metadata = 9;
 }
+
+message BleAdvertisementMessage {
+  string device_id = 1;
+  string timestamp_iso = 2;
+  int64 timestamp_epoch_ms = 3;
+  int32 channel = 4;
+  int32 signal_dbm = 5;
+  string access_address = 6;
+  string pdu_type = 7;
+  string advertiser_mac = 8;
+  string scanner_mac = 9;
+  string device_name = 10;
+  string company_id = 11;
+  bytes adv_data_raw = 12;
+  bool crc_valid = 13;
+  map<string, string> metadata = 14;
+}
+
+message TelemetryEnvelope {
+  oneof payload {
+    RfTelemetryMessage spectral_sweep = 1;
+    BleAdvertisementMessage ble_advertisement = 2;
+  }
+}

@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0ftelemetry.proto\x12\x0crf.telemetry\"\xaa\x02\n\x12RfTelemetryMessage\x12\x11\n\tdevice_id\x18\x01 \x01(\t\x12\x15\n\rtimestamp_iso\x18\x02 \x01(\t\x12\x1a\n\x12timestamp_epoch_ms\x18\x03 \x01(\x03\x12\x0e\n\x06hz_low\x18\x04 \x01(\x01\x12\x0f\n\x07hz_high\x18\x05 \x01(\x01\x12\x14\n\x0chz_bin_width\x18\x06 \x01(\x01\x12\x13\n\x0bnum_samples\x18\x07 \x01(\x05\x12\x0f\n\x07\x64\x62_bins\x18\x08 \x03(\x02\x12@\n\x08metadata\x18\t \x03(\x0b\x32..rf.telemetry.RfTelemetryMessage.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0ftelemetry.proto\x12\x0crf.telemetry\"\xaa\x02\n\x12RfTelemetryMessage\x12\x11\n\tdevice_id\x18\x01 \x01(\t\x12\x15\n\rtimestamp_iso\x18\x02 \x01(\t\x12\x1a\n\x12timestamp_epoch_ms\x18\x03 \x01(\x03\x12\x0e\n\x06hz_low\x18\x04 \x01(\x01\x12\x0f\n\x07hz_high\x18\x05 \x01(\x01\x12\x14\n\x0chz_bin_width\x18\x06 \x01(\x01\x12\x13\n\x0bnum_samples\x18\x07 \x01(\x05\x12\x0f\n\x07\x64\x62_bins\x18\x08 \x03(\x02\x12@\n\x08metadata\x18\t \x03(\x0b\x32..rf.telemetry.RfTelemetryMessage.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xa5\x03\n\x17\x42leAdvertisementMessage\x12\x11\n\tdevice_id\x18\x01 \x01(\t\x12\x15\n\rtimestamp_iso\x18\x02 \x01(\t\x12\x1a\n\x12timestamp_epoch_ms\x18\x03 \x01(\x03\x12\x0f\n\x07\x63hannel\x18\x04 \x01(\x05\x12\x12\n\nsignal_dbm\x18\x05 \x01(\x05\x12\x16\n\x0e\x61\x63\x63\x65ss_address\x18\x06 \x01(\t\x12\x10\n\x08pdu_type\x18\x07 \x01(\t\x12\x16\n\x0e\x61\x64vertiser_mac\x18\x08 \x01(\t\x12\x13\n\x0bscanner_mac\x18\t \x01(\t\x12\x13\n\x0b\x64\x65vice_name\x18\n \x01(\t\x12\x12\n\ncompany_id\x18\x0b \x01(\t\x12\x14\n\x0c\x61\x64v_data_raw\x18\x0c \x01(\x0c\x12\x11\n\tcrc_valid\x18\r \x01(\x08\x12\x45\n\x08metadata\x18\x0e \x03(\x0b\x32\x33.rf.telemetry.BleAdvertisementMessage.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x9e\x01\n\x11TelemetryEnvelope\x12:\n\x0espectral_sweep\x18\x01 \x01(\x0b\x32 .rf.telemetry.RfTelemetryMessageH\x00\x12\x42\n\x11\x62le_advertisement\x18\x02 \x01(\x0b\x32%.rf.telemetry.BleAdvertisementMessageH\x00\x42\t\n\x07payloadb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,8 +33,16 @@ if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_RFTELEMETRYMESSAGE_METADATAENTRY']._loaded_options = None
   _globals['_RFTELEMETRYMESSAGE_METADATAENTRY']._serialized_options = b'8\001'
+  _globals['_BLEADVERTISEMENTMESSAGE_METADATAENTRY']._loaded_options = None
+  _globals['_BLEADVERTISEMENTMESSAGE_METADATAENTRY']._serialized_options = b'8\001'
   _globals['_RFTELEMETRYMESSAGE']._serialized_start=34
   _globals['_RFTELEMETRYMESSAGE']._serialized_end=332
   _globals['_RFTELEMETRYMESSAGE_METADATAENTRY']._serialized_start=285
   _globals['_RFTELEMETRYMESSAGE_METADATAENTRY']._serialized_end=332
+  _globals['_BLEADVERTISEMENTMESSAGE']._serialized_start=335
+  _globals['_BLEADVERTISEMENTMESSAGE']._serialized_end=756
+  _globals['_BLEADVERTISEMENTMESSAGE_METADATAENTRY']._serialized_start=285
+  _globals['_BLEADVERTISEMENTMESSAGE_METADATAENTRY']._serialized_end=332
+  _globals['_TELEMETRYENVELOPE']._serialized_start=759
+  _globals['_TELEMETRYENVELOPE']._serialized_end=917
 # @@protoc_insertion_point(module_scope)
