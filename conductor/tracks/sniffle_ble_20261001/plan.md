@@ -10,13 +10,13 @@
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [890c871]
 
 ## Phase 2: Streaming Sniffle JSON Reader Implementation
-- [ ] Task: Write Unit Tests for `SniffleJsonReader`
-  - [ ] Write failing unit tests in `tests/test_sniffle_reader.py` testing packet parsing, field extraction (MAC, RSSI, channel, PDU type, device name, company ID), CRC filtering, and minimum RSSI threshold.
-- [ ] Task: Implement `SniffleJsonReader` (`src/agent/sniffle_reader.py`)
-  - [ ] Implement streaming JSON parser that yields `BleAdvertisementMessage` objects one-by-one with constant memory overhead.
-  - [ ] Implement CRC validation filter and `--min-rssi` threshold filter.
-  - [ ] Implement timing pacing (real-time delta vs fixed interval).
-  - [ ] Verify all reader tests pass (Green Phase).
+- [x] Task: Write Unit Tests for `SniffleJsonReader` [ee2b279]
+  - [x] Write failing unit tests in `tests/test_sniffle_reader.py` testing packet parsing, field extraction (MAC, RSSI, channel, PDU type, device name, company ID), CRC filtering, and minimum RSSI threshold.
+- [x] Task: Implement `SniffleJsonReader` (`src/agent/sniffle_reader.py`) [ee2b279]
+  - [x] Implement streaming JSON parser that yields `BleAdvertisementMessage` objects one-by-one with constant memory overhead.
+  - [x] Implement CRC validation filter and `--min-rssi` threshold filter.
+  - [x] Implement timing pacing (real-time delta vs fixed interval).
+  - [x] Verify all reader tests pass (Green Phase).
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 3: Pipeline & Publisher Dual-Source Integration
