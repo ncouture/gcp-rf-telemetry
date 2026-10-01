@@ -4,8 +4,13 @@ import asyncio
 from pathlib import Path
 
 import aiosqlite
+from google.protobuf.message import DecodeError
 
-from agent.proto.telemetry_pb2 import RfTelemetryMessage
+from agent.proto.telemetry_pb2 import (
+    BleAdvertisementMessage,
+    RfTelemetryMessage,
+    TelemetryEnvelope,
+)
 
 
 class SqliteSpooler:
@@ -33,12 +38,22 @@ class SqliteSpooler:
                 )
                 await self._conn.commit()
 
-    async def enqueue(self, message: RfTelemetryMessage) -> int:
-        """Serializes and enqueues an RfTelemetryMessage to disk spool."""
+    async def enqueue(
+        self,
+        message: RfTelemetryMessage | BleAdvertisementMessage | TelemetryEnvelope,
+    ) -> int:
+        """Serializes and enqueues a telemetry message or envelope to disk spool."""
         if self._conn is None:
             await self.initialize()
 
-        payload = message.SerializeToString()
+        if isinstance(message, TelemetryEnvelope):
+            envelope = message
+        elif isinstance(message, BleAdvertisementMessage):
+            envelope = TelemetryEnvelope(ble_advertisement=message)
+        else:
+            envelope = TelemetryEnvelope(spectral_sweep=message)
+
+        payload = envelope.SerializeToString()
         async with self._lock:
             cursor = await self._conn.execute(
                 "INSERT INTO telemetry_queue (payload) VALUES (?);", (payload,)
@@ -46,7 +61,9 @@ class SqliteSpooler:
             await self._conn.commit()
             return cursor.lastrowid or 0
 
-    async def peek_batch(self, batch_size: int = 100) -> list[tuple[int, RfTelemetryMessage]]:
+    async def peek_batch(
+        self, batch_size: int = 100
+    ) -> list[tuple[int, RfTelemetryMessage | BleAdvertisementMessage]]:
         """Peeks up to batch_size oldest messages without deleting them."""
         if self._conn is None:
             await self.initialize()
@@ -57,11 +74,29 @@ class SqliteSpooler:
         ) as cursor:
             rows = await cursor.fetchall()
 
-        results: list[tuple[int, RfTelemetryMessage]] = []
+        results: list[tuple[int, RfTelemetryMessage | BleAdvertisementMessage]] = []
         for row_id, payload in rows:
-            msg = RfTelemetryMessage()
-            msg.ParseFromString(payload)
-            results.append((row_id, msg))
+            envelope = TelemetryEnvelope()
+            try:
+                envelope.ParseFromString(payload)
+                payload_type = envelope.WhichOneof("payload")
+                if payload_type == "ble_advertisement":
+                    results.append((row_id, envelope.ble_advertisement))
+                    continue
+                if payload_type == "spectral_sweep":
+                    results.append((row_id, envelope.spectral_sweep))
+                    continue
+            except DecodeError:
+                pass
+
+            # Fallback for legacy raw RfTelemetryMessage payloads in existing databases
+            try:
+                legacy_msg = RfTelemetryMessage()
+                legacy_msg.ParseFromString(payload)
+                results.append((row_id, legacy_msg))
+            except DecodeError:
+                pass
+
         return results
 
     async def delete_batch(self, ids: list[int]) -> None:

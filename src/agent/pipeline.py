@@ -1,8 +1,8 @@
 """Telemetry Data Pipeline Orchestrator."""
 
 import asyncio
+from typing import Any
 
-from agent.csv_reader import CsvTelemetryReader
 from agent.publisher import PubSubPublisher
 from agent.server import MESSAGES_PROCESSED_TOTAL, MESSAGES_SPOOLED_TOTAL, SPOOL_QUEUE_SIZE
 from agent.spooler import SqliteSpooler
@@ -13,7 +13,7 @@ class TelemetryPipeline:
 
     def __init__(
         self,
-        reader: CsvTelemetryReader,
+        reader: Any,
         publisher: PubSubPublisher,
         spooler: SqliteSpooler | None = None,
     ) -> None:
