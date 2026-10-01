@@ -9,7 +9,7 @@
   - [x] Run `scripts/compile_proto.py` and verify all proto unit tests pass (Green Phase).
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [890c871]
 
-## Phase 2: Streaming Sniffle JSON Reader Implementation
+## Phase 2: Streaming Sniffle JSON Reader Implementation [checkpoint: ee2b279]
 - [x] Task: Write Unit Tests for `SniffleJsonReader` [ee2b279]
   - [x] Write failing unit tests in `tests/test_sniffle_reader.py` testing packet parsing, field extraction (MAC, RSSI, channel, PDU type, device name, company ID), CRC filtering, and minimum RSSI threshold.
 - [x] Task: Implement `SniffleJsonReader` (`src/agent/sniffle_reader.py`) [ee2b279]
@@ -17,7 +17,7 @@
   - [x] Implement CRC validation filter and `--min-rssi` threshold filter.
   - [x] Implement timing pacing (real-time delta vs fixed interval).
   - [x] Verify all reader tests pass (Green Phase).
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [ee2b279]
 
 ## Phase 3: Pipeline & Publisher Dual-Source Integration
 - [ ] Task: Write Unit & Integration Tests for BLE Telemetry Ingestion
