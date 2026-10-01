@@ -1,13 +1,13 @@
 # Implementation Plan: Sniffle BLE Advertisement Scans Ingestion Track
 
-## Phase 1: Test Fixtures & Protobuf Schema Expansion
+## Phase 1: Test Fixtures & Protobuf Schema Expansion [checkpoint: 890c871]
 - [x] Task: Write Unit Tests for `BleAdvertisementMessage` and `TelemetryEnvelope` [890c871]
   - [x] Create small representative JSON fixture `tests/fixtures/sample_sniffle.json` (extracted from `sniffle.json`).
   - [x] Write unit tests in `tests/test_proto_ble.py` for `BleAdvertisementMessage` and `TelemetryEnvelope` serialization and deserialization.
 - [x] Task: Update `proto/telemetry.proto` & Run Codegen [890c871]
   - [x] Add `BleAdvertisementMessage` and `TelemetryEnvelope` to `proto/telemetry.proto`.
   - [x] Run `scripts/compile_proto.py` and verify all proto unit tests pass (Green Phase).
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [890c871]
 
 ## Phase 2: Streaming Sniffle JSON Reader Implementation
 - [ ] Task: Write Unit Tests for `SniffleJsonReader`
