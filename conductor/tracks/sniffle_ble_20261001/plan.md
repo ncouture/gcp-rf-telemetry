@@ -20,13 +20,13 @@
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [ee2b279]
 
 ## Phase 3: Pipeline & Publisher Dual-Source Integration
-- [ ] Task: Write Unit & Integration Tests for BLE Telemetry Ingestion
-  - [ ] Write failing tests in `tests/test_pipeline_ble.py` verifying that `TelemetryPipeline` and `PubSubPublisher` correctly handle `BleAdvertisementMessage`, persist to SQLite spooler if offline, and publish with appropriate attributes.
-- [ ] Task: Update `PubSubPublisher`, `TelemetryPipeline`, and `SqliteSpooler`
-  - [ ] Enhance `PubSubPublisher` to support publishing BLE messages and optional dedicated `--ble-topic-id`.
-  - [ ] Enhance `TelemetryPipeline` to accept any telemetry reader (CSV or Sniffle JSON).
-  - [ ] Ensure `SqliteSpooler` supports serializing both message types.
-  - [ ] Verify all tests pass (Green Phase).
+- [x] Task: Write Unit & Integration Tests for BLE Telemetry Ingestion [7ff6d50]
+  - [x] Write failing tests in `tests/test_pipeline_ble.py` verifying that `TelemetryPipeline` and `PubSubPublisher` correctly handle `BleAdvertisementMessage`, persist to SQLite spooler if offline, and publish with appropriate attributes.
+- [x] Task: Update `PubSubPublisher`, `TelemetryPipeline`, and `SqliteSpooler` [7ff6d50]
+  - [x] Enhance `PubSubPublisher` to support publishing BLE messages and optional dedicated `--ble-topic-id`.
+  - [x] Enhance `TelemetryPipeline` to accept any telemetry reader (CSV or Sniffle JSON).
+  - [x] Ensure `SqliteSpooler` supports serializing both message types.
+  - [x] Verify all tests pass (Green Phase).
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 4: CLI Integration, Observability & Verification
