@@ -8,8 +8,8 @@ The **GCP RF Telemetry Collector Agent** is a containerized IoT/Edge service des
 - **Target OS:** Linux Edge Gateways, Embedded Systems, and Cloud Run containers
 
 ## Core Capabilities
-- **RF Telemetry Ingestion & Mocking:** Ingests RF hardware telemetry or simulates data via a mock generator reading static CSV files for local development and testing.
-- **RF Signal Metrics Tracking:** Real-time capture of frequency, RSSI, SNR, sample rate, and packet error rates.
+- **RF & BLE Telemetry Ingestion:** Ingests RF spectral sweep CSV logs and Bluetooth Low Energy (BLE) advertisement captures (Sniffle Wireshark JSON).
+- **RF & BLE Signal Metrics Tracking:** Real-time capture of frequency sweeps, RSSI, channels, PDU types, MAC addresses, sample rates, and CRC validity.
 - **Protobuf Serialization:** Low-overhead, strongly typed binary encoding for RF telemetry payloads.
 - **GCP Streaming Transport:** Direct publishing of telemetry messages to GCP Cloud Pub/Sub via gRPC / REST APIs with GCP Application Default Credentials (ADC) / Cloud Run environment authentication.
 - **Offline Resilience & Buffering:** Local disk spooling / SQLite queue to persist telemetry messages during GCP connectivity loss and drain upon reconnection.
