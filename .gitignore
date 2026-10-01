@@ -11,3 +11,4 @@ htmlcov/
 .ruff_cache/
 *.db
 hackrf_sweep_fixtures/
+sniffle.json

@@ -1,0 +1,41 @@
+# Implementation Plan: Sniffle BLE Advertisement Scans Ingestion Track
+
+## Phase 1: Test Fixtures & Protobuf Schema Expansion
+- [ ] Task: Write Unit Tests for `BleAdvertisementMessage` and `TelemetryEnvelope`
+  - [ ] Create small representative JSON fixture `tests/fixtures/sample_sniffle.json` (extracted from `sniffle.json`).
+  - [ ] Write unit tests in `tests/test_proto_ble.py` for `BleAdvertisementMessage` and `TelemetryEnvelope` serialization and deserialization.
+- [ ] Task: Update `proto/telemetry.proto` & Run Codegen
+  - [ ] Add `BleAdvertisementMessage` and `TelemetryEnvelope` to `proto/telemetry.proto`.
+  - [ ] Run `scripts/compile_proto.py` and verify all proto unit tests pass (Green Phase).
+- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+
+## Phase 2: Streaming Sniffle JSON Reader Implementation
+- [ ] Task: Write Unit Tests for `SniffleJsonReader`
+  - [ ] Write failing unit tests in `tests/test_sniffle_reader.py` testing packet parsing, field extraction (MAC, RSSI, channel, PDU type, device name, company ID), CRC filtering, and minimum RSSI threshold.
+- [ ] Task: Implement `SniffleJsonReader` (`src/agent/sniffle_reader.py`)
+  - [ ] Implement streaming JSON parser that yields `BleAdvertisementMessage` objects one-by-one with constant memory overhead.
+  - [ ] Implement CRC validation filter and `--min-rssi` threshold filter.
+  - [ ] Implement timing pacing (real-time delta vs fixed interval).
+  - [ ] Verify all reader tests pass (Green Phase).
+- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+
+## Phase 3: Pipeline & Publisher Dual-Source Integration
+- [ ] Task: Write Unit & Integration Tests for BLE Telemetry Ingestion
+  - [ ] Write failing tests in `tests/test_pipeline_ble.py` verifying that `TelemetryPipeline` and `PubSubPublisher` correctly handle `BleAdvertisementMessage`, persist to SQLite spooler if offline, and publish with appropriate attributes.
+- [ ] Task: Update `PubSubPublisher`, `TelemetryPipeline`, and `SqliteSpooler`
+  - [ ] Enhance `PubSubPublisher` to support publishing BLE messages and optional dedicated `--ble-topic-id`.
+  - [ ] Enhance `TelemetryPipeline` to accept any telemetry reader (CSV or Sniffle JSON).
+  - [ ] Ensure `SqliteSpooler` supports serializing both message types.
+  - [ ] Verify all tests pass (Green Phase).
+- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+
+## Phase 4: CLI Integration, Observability & Verification
+- [ ] Task: Update Observability & CLI Entrypoint
+  - [ ] Add Prometheus metrics `ble_packets_processed_total` and `ble_packets_crc_errors_total` to `src/agent/server.py`.
+  - [ ] Add `--sniffle-json`, `--min-rssi`, `--realtime`, `--ble-topic-id` arguments to `src/agent/cli.py`.
+  - [ ] Add unit tests in `tests/test_cli_sniffle.py` for CLI dry-run and argument parsing with Sniffle JSON.
+- [ ] Task: End-to-End Stress Verification & Readme Documentation
+  - [ ] Verify execution against the full 73MB `sniffle.json` in dry-run mode.
+  - [ ] Run full test suite and `ruff check .` ensuring >80% coverage and zero lint errors.
+  - [ ] Update `README.md` to document the new Sniffle BLE capabilities and CLI flags.
+- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
