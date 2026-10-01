@@ -19,7 +19,7 @@
   - [x] Verify all reader tests pass (Green Phase).
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [ee2b279]
 
-## Phase 3: Pipeline & Publisher Dual-Source Integration
+## Phase 3: Pipeline & Publisher Dual-Source Integration [checkpoint: 7ff6d50]
 - [x] Task: Write Unit & Integration Tests for BLE Telemetry Ingestion [7ff6d50]
   - [x] Write failing tests in `tests/test_pipeline_ble.py` verifying that `TelemetryPipeline` and `PubSubPublisher` correctly handle `BleAdvertisementMessage`, persist to SQLite spooler if offline, and publish with appropriate attributes.
 - [x] Task: Update `PubSubPublisher`, `TelemetryPipeline`, and `SqliteSpooler` [7ff6d50]
@@ -27,7 +27,7 @@
   - [x] Enhance `TelemetryPipeline` to accept any telemetry reader (CSV or Sniffle JSON).
   - [x] Ensure `SqliteSpooler` supports serializing both message types.
   - [x] Verify all tests pass (Green Phase).
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [7ff6d50]
 
 ## Phase 4: CLI Integration, Observability & Verification
 - [ ] Task: Update Observability & CLI Entrypoint
