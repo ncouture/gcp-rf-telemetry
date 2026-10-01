@@ -30,12 +30,12 @@
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [7ff6d50]
 
 ## Phase 4: CLI Integration, Observability & Verification
-- [ ] Task: Update Observability & CLI Entrypoint
-  - [ ] Add Prometheus metrics `ble_packets_processed_total` and `ble_packets_crc_errors_total` to `src/agent/server.py`.
-  - [ ] Add `--sniffle-json`, `--min-rssi`, `--realtime`, `--ble-topic-id` arguments to `src/agent/cli.py`.
-  - [ ] Add unit tests in `tests/test_cli_sniffle.py` for CLI dry-run and argument parsing with Sniffle JSON.
-- [ ] Task: End-to-End Stress Verification & Readme Documentation
-  - [ ] Verify execution against the full 73MB `sniffle.json` in dry-run mode.
-  - [ ] Run full test suite and `ruff check .` ensuring >80% coverage and zero lint errors.
-  - [ ] Update `README.md` to document the new Sniffle BLE capabilities and CLI flags.
+- [x] Task: Update Observability & CLI Entrypoint [509f2a0]
+  - [x] Add Prometheus metrics `ble_packets_processed_total` and `ble_packets_crc_errors_total` to `src/agent/server.py`.
+  - [x] Add `--sniffle-json`, `--min-rssi`, `--realtime`, `--ble-topic-id` arguments to `src/agent/cli.py`.
+  - [x] Add unit tests in `tests/test_cli_sniffle.py` for CLI dry-run and argument parsing with Sniffle JSON.
+- [x] Task: End-to-End Stress Verification & Readme Documentation [509f2a0]
+  - [x] Verify execution against the full 73MB `sniffle.json` in dry-run mode.
+  - [x] Run full test suite and `ruff check .` ensuring >80% coverage and zero lint errors.
+  - [x] Update `README.md` to document the new Sniffle BLE capabilities and CLI flags.
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
