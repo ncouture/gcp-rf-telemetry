@@ -29,7 +29,7 @@
   - [x] Verify all tests pass (Green Phase).
 - [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [7ff6d50]
 
-## Phase 4: CLI Integration, Observability & Verification
+## Phase 4: CLI Integration, Observability & Verification [checkpoint: 509f2a0]
 - [x] Task: Update Observability & CLI Entrypoint [509f2a0]
   - [x] Add Prometheus metrics `ble_packets_processed_total` and `ble_packets_crc_errors_total` to `src/agent/server.py`.
   - [x] Add `--sniffle-json`, `--min-rssi`, `--realtime`, `--ble-topic-id` arguments to `src/agent/cli.py`.
@@ -38,4 +38,4 @@
   - [x] Verify execution against the full 73MB `sniffle.json` in dry-run mode.
   - [x] Run full test suite and `ruff check .` ensuring >80% coverage and zero lint errors.
   - [x] Update `README.md` to document the new Sniffle BLE capabilities and CLI flags.
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md) [509f2a0]
